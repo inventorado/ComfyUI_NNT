@@ -30,7 +30,10 @@ This project is licensed under the GNU General Public License v3.0 - see [LICENS
 -   PyTorch 2.0+
 -   Basic understanding of neural networks
 
-* * *
+cd ComfyUI/custom_nodes
+git clone https://github.com/inventorado/ComfyUI_NNT.git
+cd ComfyUI_NNT
+pip install -r requirements.txt
 
 ## Node List and Descriptions
 
