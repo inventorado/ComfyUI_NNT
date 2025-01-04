@@ -1,0 +1,2299 @@
+{
+  "last_node_id": 73,
+  "last_link_id": 166,
+  "nodes": [
+    {
+      "id": 14,
+      "type": "NntAnalyzeModel",
+      "pos": [
+        1708.4849853515625,
+        -1339.1865234375
+      ],
+      "size": [
+        315,
+        82
+      ],
+      "flags": {},
+      "order": 24,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 16
+        }
+      ],
+      "outputs": [
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            15
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntAnalyzeModel"
+      },
+      "widgets_values": [
+        "[1,28, 28]",
+        1
+      ]
+    },
+    {
+      "id": 23,
+      "type": "JjkShowText",
+      "pos": [
+        1234.302490234375,
+        -682.3432006835938
+      ],
+      "size": [
+        294.73846435546875,
+        105.06466674804688
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 152,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Dataset: MNIST\nSplit: train\nSamples: 10000 of 60000\nImage shape: [10000, 1, 28, 28]\nDirectory: D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\models\\torchvision_datasets\\mnist\nNormalization: True\nAugmentation: False"
+      ]
+    },
+    {
+      "id": 43,
+      "type": "NntTensorElementToImage",
+      "pos": [
+        1220.85693359375,
+        -513.3284912109375
+      ],
+      "size": [
+        340.20001220703125,
+        202
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "tensor",
+          "type": "TENSOR",
+          "link": 153
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            99
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTensorElementToImage"
+      },
+      "widgets_values": [
+        3,
+        "RGB",
+        "True",
+        "False",
+        3,
+        32,
+        32
+      ]
+    },
+    {
+      "id": 59,
+      "type": "NntVisualizePredictionMetrics",
+      "pos": [
+        2894.612060546875,
+        199.00527954101562
+      ],
+      "size": [
+        403.1999816894531,
+        126
+      ],
+      "flags": {},
+      "order": 33,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "link": 115
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            116
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            118
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntVisualizePredictionMetrics"
+      },
+      "widgets_values": [
+        1024,
+        768,
+        "combined"
+      ]
+    },
+    {
+      "id": 56,
+      "type": "PreviewImage",
+      "pos": [
+        2906.979248046875,
+        383.0636291503906
+      ],
+      "size": [
+        381.111083984375,
+        311.8536071777344
+      ],
+      "flags": {},
+      "order": 38,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 116
+        }
+      ],
+      "outputs": [],
+      "title": "Testing Metrics",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 63,
+      "type": "NntVisualizeTrainingMetrics",
+      "pos": [
+        2431.43798828125,
+        -695.6021728515625
+      ],
+      "size": [
+        378,
+        126
+      ],
+      "flags": {},
+      "order": 32,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "link": 163
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            129
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": [
+            128
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntVisualizeTrainingMetrics"
+      },
+      "widgets_values": [
+        1024,
+        768,
+        "all_metrics"
+      ]
+    },
+    {
+      "id": 15,
+      "type": "JjkShowText",
+      "pos": [
+        2142.1591796875,
+        -1319.8984375
+      ],
+      "size": [
+        566.7725219726562,
+        436.4400329589844
+      ],
+      "flags": {},
+      "order": 28,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 15,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Model Analysis",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Model Analysis for input shape [1, 28, 28]:\nTotal Parameters: 1,682,954\nTrainable Parameters: 1,682,954\nMemory Usage:\n  Parameters: 6.42 MB\n  Buffers: 0.00 MB\n  Total: 6.42 MB\n\nModel Architecture:\nLayer 0: Activation=Sequential\nLayer 1: Type=Conv2d, In Channels=1, Out Channels=64, Kernel Size=(3, 3), Stride=(1, 1), Padding=(1, 1)\nLayer 2: Activation=MaxPool2d\nLayer 3: Type=Conv2d, In Channels=64, Out Channels=128, Kernel Size=(3, 3), Stride=(1, 1), Padding=(1, 1)\nLayer 4: Activation=MaxPool2d\nLayer 5: Activation=Flatten\nLayer 6: Type=Linear, In Features=6272, Out Features=256, Use Bias=True, Weight Init=default, Bias Init=default\nLayer 7: Activation=ReLU\nLayer 8: Activation=Dropout\nLayer 9: Type=Linear, In Features=256, Out Features=10, Use Bias=True, Weight Init=default, Bias Init=default"
+      ]
+    },
+    {
+      "id": 17,
+      "type": "NntDefineDenseLayer",
+      "pos": [
+        3449.541748046875,
+        -2544.8759765625
+      ],
+      "size": [
+        315,
+        438
+      ],
+      "flags": {},
+      "order": 20,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 143,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            20,
+            41
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "num_nodes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineDenseLayer"
+      },
+      "widgets_values": [
+        10,
+        "None",
+        "True",
+        "xavier_uniform",
+        1,
+        "fan_in",
+        "relu",
+        "zeros",
+        0,
+        "None",
+        0.00001,
+        0.1,
+        "True",
+        0,
+        0.01,
+        1
+      ]
+    },
+    {
+      "id": 41,
+      "type": "NntDefinePoolingLayer",
+      "pos": [
+        2419.460205078125,
+        -2531.7724609375
+      ],
+      "size": [
+        315,
+        346
+      ],
+      "flags": {},
+      "order": 15,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 149,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            81,
+            84,
+            86,
+            96
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefinePoolingLayer"
+      },
+      "widgets_values": [
+        "MaxPool2d",
+        "2",
+        "2",
+        "0",
+        "1",
+        "False",
+        "False",
+        "False",
+        "1",
+        1.5,
+        2,
+        "True",
+        1
+      ]
+    },
+    {
+      "id": 11,
+      "type": "JjkShowText",
+      "pos": [
+        3320.22509765625,
+        -1913.427734375
+      ],
+      "size": [
+        524.8604736328125,
+        320.6192626953125
+      ],
+      "flags": {},
+      "order": 23,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 14,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Layer Stack Report",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "\nLayer 1: Type=Input | Shape=[1, 28, 28]\n\nLayer 2: Type=Conv2d | Out Channels=64 | Kernel=3 | Stride=1 | Padding=1\n\nLayer 3: Type=BatchNorm2d | Num Features=64\n\nLayer 4: Type=Activation | Function=ReLU\n\nLayer 5: Type=Dropout\n\nLayer 6: Type=MaxPool2d | Type=MaxPool2d | Kernel=2 | Stride=2\n\nLayer 7: Type=Conv2d | Out Channels=128 | Kernel=3 | Stride=1 | Padding=1\n\nLayer 8: Type=BatchNorm2d | Num Features=128\n\nLayer 9: Type=Activation | Function=ReLU\n\nLayer 10: Type=Dropout\n\nLayer 11: Type=MaxPool2d | Type=MaxPool2d | Kernel=2 | Stride=2\n\nLayer 12: Type=Linear | Nodes=256 | Activation=ReLU\n\nLayer 13: Type=Linear | Nodes=10 | Activation=None"
+      ]
+    },
+    {
+      "id": 12,
+      "type": "JjkShowText",
+      "pos": [
+        1693.4041748046875,
+        -1210.2874755859375
+      ],
+      "size": [
+        425.01275634765625,
+        357.3470153808594
+      ],
+      "flags": {},
+      "order": 27,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 138,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Model Script",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "import torch\nimport torch.nn as nn\nimport math\n\nclass GeneratedModel(nn.Sequential):\n    def __init__(self):\n        # Initialize layers\n        self.input_shape = [1, 28, 28]\n\n        self.conv0 = nn.Conv2d(\n            in_channels=1,\n            out_channels=64,\n            kernel_size=3,\n            stride=1,\n            padding=1,\n            bias=True\n        )\n\n        self.norm1 = nn.BatchNorm2d(\n            num_features=64,\n            eps=1e-05,\n            momentum=0.1,\n            affine=True\n        )\n\n        self.pool4 = nn.MaxPool2d(\n            kernel_size=2,\n            stride=2,\n            padding=0\n        )\n\n        self.conv5 = nn.Conv2d(\n            in_channels=64,\n            out_channels=128,\n            kernel_size=3,\n            stride=1,\n            padding=1,\n            bias=True\n        )\n\n        self.norm6 = nn.BatchNorm2d(\n            num_features=128,\n            eps=1e-05,\n            momentum=0.1,\n            affine=True\n        )\n\n        self.pool9 = nn.MaxPool2d(\n            kernel_size=2,\n            stride=2,\n            padding=0\n        )\n\n        self.linear10 = nn.Linear(\n            in_features=128,\n            out_features=256,\n            bias=True\n        )\n        self.activation10 = nn.ReLU()\n\n        self.linear11 = nn.Linear(\n            in_features=256,\n            out_features=10,\n            bias=True\n        )\n\n        # Combine layers\n        super().__init__(\n            self.conv0,\n            self.norm1,\n            self.pool4,\n            self.conv5,\n            self.norm6,\n            self.pool9,\n            self.linear10,\n            self.activation10,\n            self.linear11,\n        )\n\n# Example usage:\n# -----------------------------\n# model = GeneratedModel()\n# input_tensor = torch.randn(1, 1, 28, 28)  # Example input tensor\n# output = model(input_tensor)\n# print(f'Input shape: {list(input_tensor.shape)}')\n# print(f'Output shape: {list(output.shape)}')"
+      ]
+    },
+    {
+      "id": 8,
+      "type": "NntCompileModel",
+      "pos": [
+        1266.3680419921875,
+        -1327.77685546875
+      ],
+      "size": [
+        400,
+        236
+      ],
+      "flags": {},
+      "order": 22,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 41
+        },
+        {
+          "name": "hyperparameters",
+          "type": "DICT",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            16,
+            158
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            139
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "script",
+          "type": "STRING",
+          "links": [
+            138
+          ],
+          "slot_index": 2
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntCompileModel"
+      },
+      "widgets_values": [
+        "Compile",
+        "ReLU",
+        "None",
+        "zeros",
+        "kaiming_normal",
+        "{}"
+      ]
+    },
+    {
+      "id": 64,
+      "type": "JjkShowText",
+      "pos": [
+        1268.2867431640625,
+        -1043.9453125
+      ],
+      "size": [
+        381.3127136230469,
+        167.68907165527344
+      ],
+      "flags": {},
+      "order": 26,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 139,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Model Script",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Model compiled successfully"
+      ]
+    },
+    {
+      "id": 30,
+      "type": "NntDefineLSTMLayer",
+      "pos": [
+        2794.061767578125,
+        -2400.142578125
+      ],
+      "size": [
+        315,
+        202
+      ],
+      "flags": {},
+      "order": 17,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 84,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineLSTMLayer"
+      },
+      "widgets_values": [
+        512,
+        256,
+        1,
+        "True",
+        "True",
+        0,
+        "False"
+      ]
+    },
+    {
+      "id": 29,
+      "type": "NntDefineRNNLayer",
+      "pos": [
+        2797.83642578125,
+        -2677.898193359375
+      ],
+      "size": [
+        315,
+        226
+      ],
+      "flags": {},
+      "order": 18,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 86,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineRNNLayer"
+      },
+      "widgets_values": [
+        512,
+        256,
+        2,
+        "tanh",
+        "True",
+        "True",
+        0,
+        "False"
+      ]
+    },
+    {
+      "id": 4,
+      "type": "NntDefinePoolingLayer",
+      "pos": [
+        1026.51220703125,
+        -2479.178955078125
+      ],
+      "size": [
+        315,
+        346
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 144,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            146
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefinePoolingLayer"
+      },
+      "widgets_values": [
+        "MaxPool2d",
+        "2",
+        "2",
+        "0",
+        "1",
+        "False",
+        "False",
+        "False",
+        "1",
+        1.5,
+        2,
+        "False",
+        1
+      ]
+    },
+    {
+      "id": 39,
+      "type": "NntDefinePoolingLayer",
+      "pos": [
+        1723.073974609375,
+        -2513.853271484375
+      ],
+      "size": [
+        315,
+        346
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 147,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            148
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefinePoolingLayer"
+      },
+      "widgets_values": [
+        "MaxPool2d",
+        "2",
+        "2",
+        "0",
+        "1",
+        "False",
+        "False",
+        "False",
+        "1",
+        1.5,
+        2,
+        "False",
+        1
+      ]
+    },
+    {
+      "id": 44,
+      "type": "PreviewImage",
+      "pos": [
+        1691.5350341796875,
+        -318.14697265625
+      ],
+      "size": [
+        226.73216247558594,
+        246
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 99
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 21,
+      "type": "PreviewImage",
+      "pos": [
+        2397.8916015625,
+        -306.7308349609375
+      ],
+      "size": [
+        422.8269348144531,
+        304.51806640625
+      ],
+      "flags": {},
+      "order": 36,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 129
+        }
+      ],
+      "outputs": [],
+      "title": "Training Metrics",
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 58,
+      "type": "NntEvaluatePredictions",
+      "pos": [
+        2917.50244140625,
+        20.528478622436523
+      ],
+      "size": [
+        315,
+        122
+      ],
+      "flags": {},
+      "order": 29,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 161
+        },
+        {
+          "name": "input_data",
+          "type": "TENSOR",
+          "link": 154
+        },
+        {
+          "name": "target_data",
+          "type": "TENSOR",
+          "link": 155
+        }
+      ],
+      "outputs": [
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "links": [
+            115
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            117
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntEvaluatePredictions"
+      },
+      "widgets_values": [
+        "classification",
+        10
+      ]
+    },
+    {
+      "id": 49,
+      "type": "PreviewImage",
+      "pos": [
+        3340.706298828125,
+        -342.31195068359375
+      ],
+      "size": [
+        207.21096801757812,
+        246
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 103
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 47,
+      "type": "NntTensorElementToImage",
+      "pos": [
+        2921.750244140625,
+        -311.3413391113281
+      ],
+      "size": [
+        340.20001220703125,
+        202
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "tensor",
+          "type": "TENSOR",
+          "link": 156
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            103
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTensorElementToImage"
+      },
+      "widgets_values": [
+        5,
+        "RGB",
+        "True",
+        "True",
+        3,
+        32,
+        32
+      ]
+    },
+    {
+      "id": 46,
+      "type": "JjkShowText",
+      "pos": [
+        2898.150634765625,
+        -688.5551147460938
+      ],
+      "size": [
+        335.6675109863281,
+        198.64405822753906
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 157,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Dataset: MNIST\nSplit: test\nSamples: 512 of 10000\nImage shape: [512, 1, 28, 28]\nDirectory: D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\models\\torchvision_datasets\\mnist\nNormalization: True\nAugmentation: False"
+      ]
+    },
+    {
+      "id": 61,
+      "type": "JjkShowText",
+      "pos": [
+        3332.61181640625,
+        498.6644592285156
+      ],
+      "size": [
+        335.5477600097656,
+        180.32864379882812
+      ],
+      "flags": {},
+      "order": 39,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 118,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Log",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Metrics Visualization Summary:\naccuracy: 0.9902\nper_class_accuracy: <class 'list'>\npredictions: <class 'list'>\ntrue_labels: <class 'list'>\nconfidences: <class 'list'>\nconfusion_matrix: <class 'list'>"
+      ]
+    },
+    {
+      "id": 35,
+      "type": "NntDefineGRULayer",
+      "pos": [
+        2794.544921875,
+        -2151.547119140625
+      ],
+      "size": [
+        315,
+        202
+      ],
+      "flags": {},
+      "order": 16,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 81,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineGRULayer"
+      },
+      "widgets_values": [
+        512,
+        20,
+        1,
+        "True",
+        "True",
+        0,
+        "False"
+      ]
+    },
+    {
+      "id": 13,
+      "type": "NntShowLayerStack",
+      "pos": [
+        3448.473876953125,
+        -2046.1390380859375
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 21,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 20
+        }
+      ],
+      "outputs": [
+        {
+          "name": "l",
+          "type": "STRING",
+          "links": [
+            14
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntShowLayerStack"
+      },
+      "widgets_values": [
+        "Basic"
+      ]
+    },
+    {
+      "id": 67,
+      "type": "NntDefineConvLayer",
+      "pos": [
+        2055.00244140625,
+        -2337.677734375
+      ],
+      "size": [
+        342.5999755859375,
+        558
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 4,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 148,
+          "shape": 7
+        },
+        {
+          "name": "hyperparameters",
+          "type": "DICT",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "layer_stack",
+          "type": "LIST",
+          "links": [
+            149
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineConvLayer"
+      },
+      "widgets_values": [
+        "Conv2d",
+        256,
+        3,
+        1,
+        1,
+        "zeros",
+        0,
+        1,
+        1,
+        "True",
+        "ReLU",
+        "BatchNorm2d",
+        0.00001,
+        0.1,
+        "True",
+        0.5,
+        "kaiming_normal",
+        1.414,
+        "fan_out",
+        "relu",
+        1
+      ]
+    },
+    {
+      "id": 42,
+      "type": "NntDefineDenseLayer",
+      "pos": [
+        2803.638671875,
+        -1900.9862060546875
+      ],
+      "size": [
+        315,
+        438
+      ],
+      "flags": {},
+      "order": 19,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 96,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            143
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "num_nodes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineDenseLayer"
+      },
+      "widgets_values": [
+        256,
+        "ReLU",
+        "True",
+        "xavier_uniform",
+        1,
+        "fan_in",
+        "relu",
+        "zeros",
+        0,
+        "None",
+        0.00001,
+        0.1,
+        "True",
+        0.5,
+        0.01,
+        1
+      ]
+    },
+    {
+      "id": 66,
+      "type": "NntDefineConvLayer",
+      "pos": [
+        1369.7733154296875,
+        -2341.780517578125
+      ],
+      "size": [
+        342.5999755859375,
+        558
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 146,
+          "shape": 7
+        },
+        {
+          "name": "hyperparameters",
+          "type": "DICT",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "layer_stack",
+          "type": "LIST",
+          "links": [
+            147
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineConvLayer"
+      },
+      "widgets_values": [
+        "Conv2d",
+        128,
+        3,
+        1,
+        1,
+        "zeros",
+        0,
+        1,
+        1,
+        "True",
+        "ReLU",
+        "BatchNorm2d",
+        0.00001,
+        0.1,
+        "True",
+        0.5,
+        "kaiming_normal",
+        1.414,
+        "fan_out",
+        "relu",
+        1
+      ]
+    },
+    {
+      "id": 65,
+      "type": "NntDefineConvLayer",
+      "pos": [
+        668.6862182617188,
+        -2479.595458984375
+      ],
+      "size": [
+        342.5999755859375,
+        558
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 145,
+          "shape": 7
+        },
+        {
+          "name": "hyperparameters",
+          "type": "DICT",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "layer_stack",
+          "type": "LIST",
+          "links": [
+            144
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineConvLayer"
+      },
+      "widgets_values": [
+        "Conv2d",
+        64,
+        3,
+        1,
+        1,
+        "zeros",
+        0,
+        1,
+        1,
+        "True",
+        "ReLU",
+        "BatchNorm2d",
+        0.00001,
+        0.1,
+        "True",
+        0.5,
+        "kaiming_normal",
+        1.414,
+        "fan_out",
+        "relu",
+        1
+      ]
+    },
+    {
+      "id": 68,
+      "type": "NntTorchvisionDataLoader",
+      "pos": [
+        1613.9151611328125,
+        -681.082763671875
+      ],
+      "size": [
+        340.20001220703125,
+        310
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "TENSOR",
+          "links": [
+            153,
+            159
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "labels",
+          "type": "TENSOR",
+          "links": [
+            160
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "dataset_info",
+          "type": "STRING",
+          "links": [
+            152
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "num_classes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTorchvisionDataLoader"
+      },
+      "widgets_values": [
+        "MNIST",
+        "train",
+        "",
+        "True",
+        "True",
+        "False",
+        10000,
+        0,
+        "True"
+      ]
+    },
+    {
+      "id": 69,
+      "type": "NntTorchvisionDataLoader",
+      "pos": [
+        3267.560302734375,
+        -711.8583374023438
+      ],
+      "size": [
+        340.20001220703125,
+        310
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "images",
+          "type": "TENSOR",
+          "links": [
+            154,
+            156
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "labels",
+          "type": "TENSOR",
+          "links": [
+            155
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "dataset_info",
+          "type": "STRING",
+          "links": [
+            157
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "num_classes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTorchvisionDataLoader"
+      },
+      "widgets_values": [
+        "MNIST",
+        "test",
+        "",
+        "True",
+        "True",
+        "False",
+        512,
+        0,
+        "True"
+      ]
+    },
+    {
+      "id": 22,
+      "type": "JjkShowText",
+      "pos": [
+        2484.6875,
+        -515.1204833984375
+      ],
+      "size": [
+        298.3199768066406,
+        150.43316650390625
+      ],
+      "flags": {},
+      "order": 37,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 128,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Training Metrics",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Training Metrics Summary:\n-------------------------\nFinal Loss: 0.0318\nBest Loss: 0.0219\nFinal Accuracy: 99.03%\nBest Accuracy: 99.29%\nInitial LR: 0.001000\nFinal LR: 0.001000"
+      ]
+    },
+    {
+      "id": 60,
+      "type": "JjkShowText",
+      "pos": [
+        3324.81884765625,
+        130.571044921875
+      ],
+      "size": [
+        358.6126403808594,
+        316.3861999511719
+      ],
+      "flags": {},
+      "order": 34,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 117,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Test Report",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "=== Classification Results ===\nOverall Accuracy: 99.02%\nSamples Evaluated: 512\n\nPer-Class Accuracy:\nClass 0: 100.00%\nClass 1: 100.00%\nClass 2: 100.00%\nClass 3: 100.00%\nClass 4: 96.43%\nClass 5: 98.08%\nClass 6: 97.73%\nClass 7: 100.00%\nClass 8: 100.00%\nClass 9: 98.18%"
+      ]
+    },
+    {
+      "id": 1,
+      "type": "NntInputLayer",
+      "pos": [
+        698.4996337890625,
+        -2631.8544921875
+      ],
+      "size": [
+        315,
+        58
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            145
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntInputLayer"
+      },
+      "widgets_values": [
+        "[1, 28, 28]"
+      ]
+    },
+    {
+      "id": 70,
+      "type": "NntTrainModel",
+      "pos": [
+        2054.403564453125,
+        -691.5722045898438
+      ],
+      "size": [
+        355.20001220703125,
+        646
+      ],
+      "flags": {},
+      "order": 25,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 158
+        },
+        {
+          "name": "training_data",
+          "type": "TENSOR",
+          "link": 159
+        },
+        {
+          "name": "target_data",
+          "type": "TENSOR",
+          "link": 160
+        },
+        {
+          "name": "hyperparameters",
+          "type": "DICT",
+          "link": null,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            161,
+            164
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "training_log",
+          "type": "STRING",
+          "links": [
+            162
+          ]
+        },
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "links": [
+            163
+          ]
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTrainModel"
+      },
+      "widgets_values": [
+        "training_experiment",
+        128,
+        100,
+        "Adam",
+        0.001,
+        0.0001,
+        0.9,
+        "CrossEntropyLoss",
+        "mean",
+        "False",
+        "[]",
+        0,
+        "True",
+        "StepLR",
+        60,
+        0.1,
+        0.000001,
+        "True",
+        5,
+        0.001,
+        "False",
+        "[-1]",
+        "False"
+      ]
+    },
+    {
+      "id": 10,
+      "type": "JjkShowText",
+      "pos": [
+        2056.429443359375,
+        0.30099061131477356
+      ],
+      "size": [
+        314.85723876953125,
+        164.4139862060547
+      ],
+      "flags": {},
+      "order": 31,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 162,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Training Log",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Training Results (12.74s):\n--------------------------------------------------\nEpoch   1/100: Loss = 2.8640, Accuracy = 52.76%\nEpoch   2/100: Loss = 0.6624, Accuracy = 78.38%\nEpoch   3/100: Loss = 0.4666, Accuracy = 85.35%\nEpoch   4/100: Loss = 0.3579, Accuracy = 89.07%\nEpoch   5/100: Loss = 0.2977, Accuracy = 91.05%\nEpoch   6/100: Loss = 0.2635, Accuracy = 92.08%\nEpoch   7/100: Loss = 0.2259, Accuracy = 93.44%\nEpoch   8/100: Loss = 0.1874, Accuracy = 94.26%\nEpoch   9/100: Loss = 0.1698, Accuracy = 94.72%\nEpoch  10/100: Loss = 0.1454, Accuracy = 95.66%\nEpoch  11/100: Loss = 0.1329, Accuracy = 95.98%\nEpoch  12/100: Loss = 0.1213, Accuracy = 96.34%\nEpoch  13/100: Loss = 0.1176, Accuracy = 96.14%\nEpoch  14/100: Loss = 0.0935, Accuracy = 97.06%\nEpoch  15/100: Loss = 0.0836, Accuracy = 97.27%\nEpoch  16/100: Loss = 0.0859, Accuracy = 97.22%\nEpoch  17/100: Loss = 0.0798, Accuracy = 97.34%\nEpoch  18/100: Loss = 0.0746, Accuracy = 97.62%\nEpoch  19/100: Loss = 0.0570, Accuracy = 98.25%\nEpoch  20/100: Loss = 0.0583, Accuracy = 98.19%\nEpoch  21/100: Loss = 0.0526, Accuracy = 98.36%\nEpoch  22/100: Loss = 0.0435, Accuracy = 98.45%\nEpoch  23/100: Loss = 0.0533, Accuracy = 98.33%\nEpoch  24/100: Loss = 0.0534, Accuracy = 98.15%\nEpoch  25/100: Loss = 0.0456, Accuracy = 98.48%\nEpoch  26/100: Loss = 0.0366, Accuracy = 98.88%\nEpoch  27/100: Loss = 0.0424, Accuracy = 98.51%\nEpoch  28/100: Loss = 0.0389, Accuracy = 98.66%\nEpoch  29/100: Loss = 0.0318, Accuracy = 99.00%\nEpoch  30/100: Loss = 0.0370, Accuracy = 98.74%\nEpoch  31/100: Loss = 0.0376, Accuracy = 98.65%\nEpoch  32/100: Loss = 0.0413, Accuracy = 98.73%\nEpoch  33/100: Loss = 0.0308, Accuracy = 98.91%\nEpoch  34/100: Loss = 0.0285, Accuracy = 99.08%\nEpoch  35/100: Loss = 0.0412, Accuracy = 98.62%\nEpoch  36/100: Loss = 0.0288, Accuracy = 98.96%\nEpoch  37/100: Loss = 0.0304, Accuracy = 99.00%\nEpoch  38/100: Loss = 0.0273, Accuracy = 99.12%\nEpoch  39/100: Loss = 0.0315, Accuracy = 99.03%\nEpoch  40/100: Loss = 0.0263, Accuracy = 99.15%\nEpoch  41/100: Loss = 0.0295, Accuracy = 99.05%\nEpoch  42/100: Loss = 0.0219, Accuracy = 99.29%\nEpoch  43/100: Loss = 0.0248, Accuracy = 99.16%\nEpoch  44/100: Loss = 0.0222, Accuracy = 99.23%\nEpoch  45/100: Loss = 0.0275, Accuracy = 99.11%\nEpoch  46/100: Loss = 0.0334, Accuracy = 98.87%\nEpoch  47/100: Loss = 0.0318, Accuracy = 99.03%\n--------------------------------------------------\nFinal Loss: 0.0318, Best Loss: 0.0219\nFinal Accuracy: 99.03%, Best Accuracy: 99.29%\nFinal Learning Rate: 0.001000"
+      ]
+    },
+    {
+      "id": 71,
+      "type": "JjkText",
+      "pos": [
+        495.9766540527344,
+        -1371.1708984375
+      ],
+      "size": [
+        660.4610595703125,
+        897.95361328125
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Workflow Description",
+      "properties": {
+        "Node name for S&R": "JjkText"
+      },
+      "widgets_values": [
+        "NNT Convolutional Neural Network Example Workflow for CIFAR10\n\nThis workflow demonstrates the creation, training, and evaluation of a convolutional neural network (CNN) for image classification using the CIFAR10 dataset.\nNetwork Architecture\n\nInput Layer: [1, 28, 28] shape for grayscale MNIST images\nFirst Block:\n\nConv2d layer (64 filters, 3x3 kernel, padding=1)\nBatchNorm2d\nReLU activation\nMaxPool2d (2x2)\n\n\nSecond Block:\n\nConv2d layer (128 filters, 3x3 kernel, padding=1)\nBatchNorm2d\nReLU activation\nMaxPool2d (2x2)\n\nDense Layers:\n\nFlatten layer\nDense layer (256 units)\nReLU activation\nDense layer (10 units) for final classification (numbers 0-9)\n\nData Handling\n\nTraining data: MNIST training set with 10000 samples\nTesting data: MNIST test set with 512 samples\nData normalization enabled\nData visualization through NntTensorElementToImage nodes\n\nTraining Configuration\n\nOptimizer: Adam (learning rate: 0.001)\nLoss function: CrossEntropyLoss\nLearning rate scheduler: StepLR\n\nStep size: 60\nGamma: 0.1\n\n\nEarly stopping enabled\nTraining monitored through metrics visualization\n\nWorkflow Structure\n\nLayer Definition: Sequential construction of network layers using NNT nodes\nModel Compilation: NntCompileModel node assembles the network\nTraining: NntTrainModel handles the training process\nEvaluation: NntEvaluatePredictions performs testing\nVisualization: Multiple visualization nodes for training metrics and predictions\nSaving to local folder: Model is saved locally to chosen path, default is ComfyUI\\models\\nnt_models\nPerformance Metrics\n\nTraining accuracy: ~99%\nTest accuracy: ~99%\nPer-class accuracy analysis available through evaluation metrics\n\nThe workflow serves as a template for image classification tasks and can be modified for different datasets or architectures.\n"
+      ]
+    },
+    {
+      "id": 72,
+      "type": "NntSaveModel",
+      "pos": [
+        1244.5615234375,
+        53.69767379760742
+      ],
+      "size": [
+        315,
+        222
+      ],
+      "flags": {},
+      "order": 30,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 164
+        }
+      ],
+      "outputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "links": null
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            166
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntSaveModel"
+      },
+      "widgets_values": [
+        "MNIST_trained_model.pth",
+        "",
+        "PyTorch Model",
+        "False",
+        "None",
+        "none",
+        8
+      ]
+    },
+    {
+      "id": 73,
+      "type": "JjkShowText",
+      "pos": [
+        1597.6802978515625,
+        56.17575454711914
+      ],
+      "size": [
+        314.85723876953125,
+        164.4139862060547
+      ],
+      "flags": {},
+      "order": 35,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 166,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Saving Log",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Error saving model: 'str' object has no attribute 'exists'"
+      ]
+    }
+  ],
+  "links": [
+    [
+      14,
+      13,
+      0,
+      11,
+      0,
+      "STRING"
+    ],
+    [
+      15,
+      14,
+      0,
+      15,
+      0,
+      "STRING"
+    ],
+    [
+      16,
+      8,
+      0,
+      14,
+      0,
+      "MODEL"
+    ],
+    [
+      20,
+      17,
+      0,
+      13,
+      0,
+      "LIST"
+    ],
+    [
+      41,
+      17,
+      0,
+      8,
+      0,
+      "LIST"
+    ],
+    [
+      81,
+      41,
+      0,
+      35,
+      0,
+      "LIST"
+    ],
+    [
+      84,
+      41,
+      0,
+      30,
+      0,
+      "LIST"
+    ],
+    [
+      86,
+      41,
+      0,
+      29,
+      0,
+      "LIST"
+    ],
+    [
+      96,
+      41,
+      0,
+      42,
+      0,
+      "LIST"
+    ],
+    [
+      99,
+      43,
+      0,
+      44,
+      0,
+      "IMAGE"
+    ],
+    [
+      103,
+      47,
+      0,
+      49,
+      0,
+      "IMAGE"
+    ],
+    [
+      115,
+      58,
+      0,
+      59,
+      0,
+      "DICT"
+    ],
+    [
+      116,
+      59,
+      0,
+      56,
+      0,
+      "IMAGE"
+    ],
+    [
+      117,
+      58,
+      1,
+      60,
+      0,
+      "STRING"
+    ],
+    [
+      118,
+      59,
+      1,
+      61,
+      0,
+      "STRING"
+    ],
+    [
+      128,
+      63,
+      1,
+      22,
+      0,
+      "STRING"
+    ],
+    [
+      129,
+      63,
+      0,
+      21,
+      0,
+      "IMAGE"
+    ],
+    [
+      138,
+      8,
+      2,
+      12,
+      0,
+      "STRING"
+    ],
+    [
+      139,
+      8,
+      1,
+      64,
+      0,
+      "STRING"
+    ],
+    [
+      143,
+      42,
+      0,
+      17,
+      0,
+      "LIST"
+    ],
+    [
+      144,
+      65,
+      0,
+      4,
+      0,
+      "LIST"
+    ],
+    [
+      145,
+      1,
+      0,
+      65,
+      0,
+      "LIST"
+    ],
+    [
+      146,
+      4,
+      0,
+      66,
+      0,
+      "LIST"
+    ],
+    [
+      147,
+      66,
+      0,
+      39,
+      0,
+      "LIST"
+    ],
+    [
+      148,
+      39,
+      0,
+      67,
+      0,
+      "LIST"
+    ],
+    [
+      149,
+      67,
+      0,
+      41,
+      0,
+      "LIST"
+    ],
+    [
+      152,
+      68,
+      2,
+      23,
+      0,
+      "STRING"
+    ],
+    [
+      153,
+      68,
+      0,
+      43,
+      0,
+      "TENSOR"
+    ],
+    [
+      154,
+      69,
+      0,
+      58,
+      1,
+      "TENSOR"
+    ],
+    [
+      155,
+      69,
+      1,
+      58,
+      2,
+      "TENSOR"
+    ],
+    [
+      156,
+      69,
+      0,
+      47,
+      0,
+      "TENSOR"
+    ],
+    [
+      157,
+      69,
+      2,
+      46,
+      0,
+      "STRING"
+    ],
+    [
+      158,
+      8,
+      0,
+      70,
+      0,
+      "MODEL"
+    ],
+    [
+      159,
+      68,
+      0,
+      70,
+      1,
+      "TENSOR"
+    ],
+    [
+      160,
+      68,
+      1,
+      70,
+      2,
+      "TENSOR"
+    ],
+    [
+      161,
+      70,
+      0,
+      58,
+      0,
+      "MODEL"
+    ],
+    [
+      162,
+      70,
+      1,
+      10,
+      0,
+      "STRING"
+    ],
+    [
+      163,
+      70,
+      2,
+      63,
+      0,
+      "DICT"
+    ],
+    [
+      164,
+      70,
+      0,
+      72,
+      0,
+      "MODEL"
+    ],
+    [
+      166,
+      72,
+      1,
+      73,
+      0,
+      "STRING"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 1,
+      "title": "Training Data (Down)loading",
+      "bounding": [
+        1193.3919677734375,
+        -766.6441040039062,
+        796.5096435546875,
+        710.578857421875
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 2,
+      "title": "Training",
+      "bounding": [
+        2027.799560546875,
+        -778.494140625,
+        795.3892211914062,
+        991.284423828125
+      ],
+      "color": "#A88",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 3,
+      "title": "Compile Model",
+      "bounding": [
+        1235.5633544921875,
+        -1422.217041015625,
+        1488.9796142578125,
+        589.4373779296875
+      ],
+      "color": "#b58b2a",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 4,
+      "title": "Define NN Layers",
+      "bounding": [
+        651.9451293945312,
+        -2759.810302734375,
+        3192.53759765625,
+        1309.3304443359375
+      ],
+      "color": "#8A8",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 5,
+      "title": "Testing Data (Down)loading",
+      "bounding": [
+        2874.701171875,
+        -782.7057495117188,
+        739.4299926757812,
+        686.4652099609375
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 6,
+      "title": "Testing",
+      "bounding": [
+        2874.37939453125,
+        -60.349430084228516,
+        817.9925537109375,
+        775.044189453125
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "NNT Convolutional NN Example Workflow for MNIST",
+      "bounding": [
+        1179.70947265625,
+        -2874.146728515625,
+        1157.739990234375,
+        90.83470916748047
+      ],
+      "color": "#3f789e",
+      "font_size": 40,
+      "flags": {}
+    },
+    {
+      "id": 8,
+      "title": "Save Trained Model",
+      "bounding": [
+        1195.77392578125,
+        -32.779048919677734,
+        792.96875,
+        340.9006652832031
+      ],
+      "color": "#88A",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 1,
+      "offset": [
+        48.24057708303047,
+        1066.8051645276994
+      ]
+    }
+  },
+  "version": 0.4
+}

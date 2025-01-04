@@ -1,0 +1,778 @@
+{
+  "last_node_id": 97,
+  "last_link_id": 190,
+  "nodes": [
+    {
+      "id": 73,
+      "type": "JjkShowText",
+      "pos": [
+        1512.5333251953125,
+        -2567.87890625
+      ],
+      "size": [
+        314.85723876953125,
+        164.4139862060547
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 173,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "title": "Loading Log",
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Model loaded from D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\models\\nnt_models\\MNIST_trained_model.pth"
+      ]
+    },
+    {
+      "id": 88,
+      "type": "JjkShowText",
+      "pos": [
+        2041.628662109375,
+        -2194.4306640625
+      ],
+      "size": [
+        294.73846435546875,
+        105.06466674804688
+      ],
+      "flags": {},
+      "order": 9,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 180,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "Inference completed on 1 samples\nProcessing time: 0.001s\nAverage confidence: 0.839\nOutput shape: [1, 10]"
+      ]
+    },
+    {
+      "id": 84,
+      "type": "NntTensorToText",
+      "pos": [
+        2436.859619140625,
+        -2560.5751953125
+      ],
+      "size": [
+        315,
+        106
+      ],
+      "flags": {},
+      "order": 7,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "tensor",
+          "type": "TENSOR",
+          "link": 178
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text_output",
+          "type": "STRING",
+          "links": [
+            179
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTensorToText"
+      },
+      "widgets_values": [
+        "formatted_text",
+        4,
+        100
+      ]
+    },
+    {
+      "id": 78,
+      "type": "NntInference",
+      "pos": [
+        2002.21044921875,
+        -2573.375244140625
+      ],
+      "size": [
+        380.4000244140625,
+        286
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "MODEL",
+          "type": "MODEL",
+          "link": 177
+        },
+        {
+          "name": "input_tensor",
+          "type": "TENSOR",
+          "link": 176
+        }
+      ],
+      "outputs": [
+        {
+          "name": "output_tensor",
+          "type": "TENSOR",
+          "links": [
+            178
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "confidence_scores",
+          "type": "TENSOR",
+          "links": [
+            189
+          ],
+          "slot_index": 1
+        },
+        {
+          "name": "inference_info",
+          "type": "STRING",
+          "links": [
+            180
+          ],
+          "slot_index": 2
+        },
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "links": [
+            187
+          ],
+          "slot_index": 3
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntInference"
+      },
+      "widgets_values": [
+        "single",
+        0,
+        1,
+        "probabilities",
+        "True",
+        "cuda",
+        "[]",
+        "None"
+      ]
+    },
+    {
+      "id": 96,
+      "type": "NntVisualizeConfidenceScores",
+      "pos": [
+        2008.7713623046875,
+        -1972.5482177734375
+      ],
+      "size": [
+        390.5999755859375,
+        150
+      ],
+      "flags": {},
+      "order": 8,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "confidence_scores",
+          "type": "TENSOR",
+          "link": 189
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            190
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntVisualizeConfidenceScores"
+      },
+      "widgets_values": [
+        1024,
+        768,
+        "combined",
+        0.5
+      ]
+    },
+    {
+      "id": 95,
+      "type": "PreviewImage",
+      "pos": [
+        2837.328857421875,
+        -2360.85986328125
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 14,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 188
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 94,
+      "type": "NntAnalyzeInferenceMetrics",
+      "pos": [
+        2426.166259765625,
+        -2125.17724609375
+      ],
+      "size": [
+        365.4000244140625,
+        126
+      ],
+      "flags": {},
+      "order": 10,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "metrics",
+          "type": "DICT",
+          "link": 187
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            188
+          ]
+        },
+        {
+          "name": "STRING",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntAnalyzeInferenceMetrics"
+      },
+      "widgets_values": [
+        1024,
+        768,
+        "combined"
+      ]
+    },
+    {
+      "id": 87,
+      "type": "JjkShowText",
+      "pos": [
+        2439.52392578125,
+        -2384.2822265625
+      ],
+      "size": [
+        303.8973388671875,
+        204.98123168945312
+      ],
+      "flags": {},
+      "order": 12,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "link": 179,
+          "widget": {
+            "name": "text"
+          }
+        }
+      ],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null,
+          "shape": 6
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "JjkShowText"
+      },
+      "widgets_values": [
+        "[[0.0004, 0.0004, 0.0000, 0.1605, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000,\n  0.8387]]"
+      ]
+    },
+    {
+      "id": 79,
+      "type": "LoadImage",
+      "pos": [
+        1128.4766845703125,
+        -2219.810302734375
+      ],
+      "size": [
+        315,
+        314
+      ],
+      "flags": {},
+      "order": 0,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            175
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "MASK",
+          "type": "MASK",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "LoadImage"
+      },
+      "widgets_values": [
+        "large_nine.png",
+        "image"
+      ]
+    },
+    {
+      "id": 83,
+      "type": "NntImageToTensor",
+      "pos": [
+        1516.781982421875,
+        -2226.56494140625
+      ],
+      "size": [
+        315,
+        154
+      ],
+      "flags": {},
+      "order": 3,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "image",
+          "type": "IMAGE",
+          "link": 175
+        }
+      ],
+      "outputs": [
+        {
+          "name": "TENSOR",
+          "type": "TENSOR",
+          "links": [
+            176,
+            185
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntImageToTensor"
+      },
+      "widgets_values": [
+        28,
+        28,
+        "True",
+        "Grayscale",
+        "False"
+      ]
+    },
+    {
+      "id": 74,
+      "type": "NntLoadModel",
+      "pos": [
+        1128.051513671875,
+        -2549.447265625
+      ],
+      "size": [
+        315,
+        150
+      ],
+      "flags": {},
+      "order": 1,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "model",
+          "type": "MODEL",
+          "links": [
+            177
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "report",
+          "type": "STRING",
+          "links": [
+            173
+          ],
+          "slot_index": 1
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntLoadModel"
+      },
+      "widgets_values": [
+        "MNIST_trained_model.pth",
+        "",
+        "PyTorch Model",
+        "False"
+      ]
+    },
+    {
+      "id": 97,
+      "type": "PreviewImage",
+      "pos": [
+        2436.82177734375,
+        -1943.3037109375
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 13,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 190
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 89,
+      "type": "NntTensorElementToImage",
+      "pos": [
+        1535.230224609375,
+        -2025.45166015625
+      ],
+      "size": [
+        340.20001220703125,
+        202
+      ],
+      "flags": {},
+      "order": 6,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "tensor",
+          "type": "TENSOR",
+          "link": 185
+        }
+      ],
+      "outputs": [
+        {
+          "name": "IMAGE",
+          "type": "IMAGE",
+          "links": [
+            186
+          ],
+          "slot_index": 0
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntTensorElementToImage"
+      },
+      "widgets_values": [
+        0,
+        "RGB",
+        "True",
+        "False",
+        1,
+        28,
+        28
+      ]
+    },
+    {
+      "id": 93,
+      "type": "PreviewImage",
+      "pos": [
+        1601.4024658203125,
+        -1773.5513916015625
+      ],
+      "size": [
+        210,
+        246
+      ],
+      "flags": {},
+      "order": 11,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "images",
+          "type": "IMAGE",
+          "link": 186
+        }
+      ],
+      "outputs": [],
+      "properties": {
+        "Node name for S&R": "PreviewImage"
+      },
+      "widgets_values": []
+    },
+    {
+      "id": 75,
+      "type": "JjkText",
+      "pos": [
+        370.58221435546875,
+        -2580.73681640625
+      ],
+      "size": [
+        662.6279907226562,
+        486.77655029296875
+      ],
+      "flags": {},
+      "order": 2,
+      "mode": 0,
+      "inputs": [],
+      "outputs": [
+        {
+          "name": "text",
+          "type": "STRING",
+          "links": null
+        }
+      ],
+      "title": "Workflow Description",
+      "properties": {
+        "Node name for S&R": "JjkText"
+      },
+      "widgets_values": [
+        "NNT Model Loading and Inference Example Workflow for MNIST\n\nThis workflow demonstrates how to load a trained neural network model and perform inference on a sample number image. It is designed to be a flexible example that can be adapted for different models and input types.\n\nSteps in the Workflow:\n\nModel Loading:\n\nThe trained model (created using another sample workflow) is loaded from the specified directory.\nThe default path for the model is: ComfyUI/models/nnt_models.\n\nInput Preparation:\n\nA sample image of a handwritten number (white digit on a black background) is provided.\nThe image is processed as follows:\nResized to 28×28 pixels to match the MNIST model's input size.\nConverted to Grayscale (single-channel image) for compatibility with the model's expected input format.\n\nTensor Preview:\n\nThe processed image is converted into a tensor and previewed to ensure it is correctly formatted for inference.\n\nModel Inference:\n\nThe tensor is fed into the trained model for prediction.\nThe model returns an output tensor, which represents probabilities for each digit (0–9). For example:\n[[0.0004, 0.0004, 0.0000, 0.1605, 0.0000, 0.0000, 0.0000, 0.0000, 0.0000, 0.8387]]\nThe output tensor is interpreted as:\nThe model is 84% confident the input digit is \"9\".\nThere is also a 16% chance it is \"3\".\n\nInterpretation and Feedback:\n\nThe results are displayed, showing the predicted digit and confidence levels for further analysis or debugging."
+      ]
+    }
+  ],
+  "links": [
+    [
+      173,
+      74,
+      1,
+      73,
+      0,
+      "STRING"
+    ],
+    [
+      175,
+      79,
+      0,
+      83,
+      0,
+      "IMAGE"
+    ],
+    [
+      176,
+      83,
+      0,
+      78,
+      1,
+      "TENSOR"
+    ],
+    [
+      177,
+      74,
+      0,
+      78,
+      0,
+      "MODEL"
+    ],
+    [
+      178,
+      78,
+      0,
+      84,
+      0,
+      "TENSOR"
+    ],
+    [
+      179,
+      84,
+      0,
+      87,
+      0,
+      "STRING"
+    ],
+    [
+      180,
+      78,
+      2,
+      88,
+      0,
+      "STRING"
+    ],
+    [
+      185,
+      83,
+      0,
+      89,
+      0,
+      "TENSOR"
+    ],
+    [
+      186,
+      89,
+      0,
+      93,
+      0,
+      "IMAGE"
+    ],
+    [
+      187,
+      78,
+      3,
+      94,
+      0,
+      "DICT"
+    ],
+    [
+      188,
+      94,
+      0,
+      95,
+      0,
+      "IMAGE"
+    ],
+    [
+      189,
+      78,
+      1,
+      96,
+      0,
+      "TENSOR"
+    ],
+    [
+      190,
+      96,
+      0,
+      97,
+      0,
+      "IMAGE"
+    ]
+  ],
+  "groups": [
+    {
+      "id": 6,
+      "title": "Inference",
+      "bounding": [
+        1960.54248046875,
+        -2678.12744140625,
+        1123.3770751953125,
+        1035.0626220703125
+      ],
+      "color": "#8AA",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 7,
+      "title": "NNT Model Loading and Inference Example Workflow for MNIST",
+      "bounding": [
+        1116.7808837890625,
+        -2813.18359375,
+        1266.5797119140625,
+        80
+      ],
+      "color": "#3f789e",
+      "font_size": 40,
+      "flags": {}
+    },
+    {
+      "id": 8,
+      "title": "Load Trained Model",
+      "bounding": [
+        1100.5465087890625,
+        -2683.1494140625,
+        792.96875,
+        340.9006652832031
+      ],
+      "color": "#88A",
+      "font_size": 24,
+      "flags": {}
+    },
+    {
+      "id": 9,
+      "title": "Load and Prepare Image",
+      "bounding": [
+        1093.382568359375,
+        -2308.281494140625,
+        838.7692260742188,
+        796.2186889648438
+      ],
+      "color": "#3f789e",
+      "font_size": 24,
+      "flags": {}
+    }
+  ],
+  "config": {},
+  "extra": {
+    "ds": {
+      "scale": 0.5209868481924438,
+      "offset": [
+        263.0338039760523,
+        2959.1341721936055
+      ]
+    }
+  },
+  "version": 0.4
+}
