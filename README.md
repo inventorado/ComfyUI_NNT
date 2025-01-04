@@ -35,7 +35,7 @@ cd ComfyUI/custom_nodes
 git clone https://github.com/inventorado/ComfyUI_NNT.git
 cd ComfyUI_NNT
 pip install -r requirements.txt
-
+```
 ## Node List and Descriptions
 
 ### Models
