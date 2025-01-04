@@ -36,6 +36,44 @@ git clone https://github.com/inventorado/ComfyUI_NNT.git
 cd ComfyUI_NNT
 pip install -r requirements.txt
 ```
+
+## Example Workflows
+
+### Linear Regression Example
+<p align="center">
+  <img src="workflows/NNT_linear_regression.png" width="800" alt="Linear Regression Workflow">
+</p>
+
+A simple linear regression model demonstrating basic neural network construction and training. Shows how to create input layers, add linear layers, compile the model, and visualize training results.
+
+### CIFAR10 Convolutional Network
+<p align="center">
+  <img src="workflows/NNT_conv_CIFAR10.png" width="800" alt="CIFAR10 CNN Workflow">
+</p>
+
+Advanced convolutional neural network for CIFAR10 image classification. Features data loading, model construction with conv layers, batch normalization, and pooling, followed by training and evaluation.
+
+### MNIST Digit Recognition
+<p align="center">
+  <img src="workflows/NNT_conv_MNIST.png" width="800" alt="MNIST CNN Workflow">
+</p>
+
+Classic MNIST handwritten digit classification using convolutional neural network. Demonstrates proper model architecture for digit recognition with convolutional layers, pooling, and dense layers.
+
+### MNIST Model Loading and Inference
+<p align="center">
+  <img src="workflows/NNT_load_infer_MNIST.png" width="800" alt="MNIST Inference Workflow">
+</p>
+
+Example of loading a pre-trained MNIST model and performing inference. Shows how to load model weights, process input data, and visualize prediction results.
+
+### Fashion-MNIST Autoencoder with RNN
+<p align="center">
+  <img src="workflows/rnn-FashionMNIST-autoencoder.png" width="800" alt="Fashion-MNIST RNN Autoencoder">
+</p>
+
+Recurrent neural network (RNN) based autoencoder for Fashion-MNIST dataset. Demonstrates sequence processing capabilities with RNN layers for image reconstruction tasks.
+
 ## Node List and Descriptions
 
 ### Models
