@@ -30,14 +30,24 @@ This project is licensed under the GNU General Public License v3.0 - see [LICENS
 -   PyTorch 2.0+
 -   Basic understanding of neural networks
 
+Installation can be done via ConfyUI Manager or manualy
+
 ```bash
 cd ComfyUI/custom_nodes
 git clone https://github.com/inventorado/ComfyUI_NNT.git
 cd ComfyUI_NNT
 pip install -r requirements.txt
 ```
+On standalone version you can install requirements for embeded python using
+
+```bash
+cd ComfyUI_NNT
+..\..\..\python_embeded\python.exe -m pip install -r requirements.txt
+```
 
 ## Example Workflows
+
+Example workflows can be found in workflows directory under this custom node. They use ComfyUI-Jjk-Nodes for displaying text, you can install this by ConfyUI Manager - Install Missing Custom Nodes.
 
 ### Linear Regression Example
 <p align="center">
