@@ -1,5 +1,5 @@
 [project]
-name = "ComfyUI_NNT"
+name = "nnt"
 description = "Neural Network Toolkit (NNT) for ComfyUI is an extensive set of custom ComfyUI nodes for designing, training, and fine-tuning neural networks. This toolkit allows defining models, layers, training workflows, transformers, and tensor operations in a visual manner using nodes."
 version = "1.0.1"
 license = {file = "LICENSE"}
@@ -11,5 +11,5 @@ Repository = "https://github.com/inventorado/ComfyUI_NNT"
 
 [tool.comfy]
 PublisherId = "inventorado"
-DisplayName = "ComfyUI_NNT"
+DisplayName = "ComfyUI Neural Network Toolkit NNT "
 Icon = ""
