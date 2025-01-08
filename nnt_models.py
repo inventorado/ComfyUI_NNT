@@ -2344,6 +2344,26 @@ class NntCompileModel:
                         layers.append(linear)
                         current_shape = [current_shape[0], layer_def['num_nodes']]
 
+                        # Add normalization if specified
+                        if layer_def.get('normalization', 'None') != 'None':
+                            norm_type = layer_def['normalization']
+                            if norm_type == 'BatchNorm':
+                                norm_layer = nn.BatchNorm1d(
+                                    layer_def['num_nodes'],
+                                    eps=layer_def.get('norm_eps', 1e-5),
+                                    momentum=layer_def.get('norm_momentum', 0.1),
+                                    affine=layer_def.get('norm_affine', True),
+                                    track_running_stats=layer_def.get('track_running_stats', True)
+                                ).to(device)
+                                layers.append(norm_layer)
+                            elif norm_type == 'LayerNorm':
+                                norm_layer = nn.LayerNorm(
+                                    layer_def['num_nodes'],
+                                    eps=layer_def.get('norm_eps', 1e-5),
+                                    elementwise_affine=layer_def.get('norm_affine', True)
+                                ).to(device)
+                                layers.append(norm_layer)
+
                         # Add activation if specified
                         if layer_def.get('activation', 'None') != 'None':
                             activation_class = getattr(nn, layer_def['activation'])
