@@ -108,7 +108,7 @@
         "Node name for S&R": "JjkShowText"
       },
       "widgets_values": [
-        "Dataset: CIFAR10\nSplit: train\nSamples: 10000 of 50000\nImage shape: [10000, 3, 32, 32]\nDirectory: D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\custom_nodes\\ComfyUI_NeuralNetworkToolkit\\Data\\torchvision_datasets\\cifar10\nNormalization: True\nAugmentation: False"
+        "Dataset: CIFAR10\nSplit: train\nSamples: 10000 of 50000\nImage shape: [10000, 3, 32, 32]\nDirectory:\nNormalization: True\nAugmentation: False"
       ]
     },
     {
@@ -1453,7 +1453,7 @@
       "widgets_values": [
         "CIFAR10",
         "train",
-        "D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\custom_nodes\\ComfyUI_NeuralNetworkToolkit\\Data\\torchvision_datasets",
+        "D:\\AI\\MOJECOMFY\\ComfyUI_windows_portable\\ComfyUI\\custom_nodes\\ComfyUI_NNT\\Data\\torchvision_datasets",
         "True",
         "True",
         "False",
