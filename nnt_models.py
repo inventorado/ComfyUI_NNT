@@ -3,6 +3,7 @@ import torch
 import torch.nn as nn
 import os
 import ast
+import inspect
 
 PADDING_MODES = ["zeros", "reflect", "replicate", "circular"]
 NONLINEARITY_TYPES = ["relu", "leaky_relu", "selu", "tanh", "linear", "sigmoid"]
@@ -2148,8 +2149,30 @@ class NntCompileModel:
     except:
         default_activation_params = {}
 
+    def calculate_conv_output_shape(self, input_shape, kernel_size, stride, padding, dilation=1):
+        """Calculate output shape after convolution"""
+        if isinstance(kernel_size, int): kernel_size = (kernel_size, kernel_size)
+        if isinstance(stride, int): stride = (stride, stride)
+        if isinstance(padding, int): padding = (padding, padding)
+        if isinstance(dilation, int): dilation = (dilation, dilation)
+
+        H = ((input_shape[2] + 2 * padding[0] - dilation[0] * (kernel_size[0] - 1) - 1) // stride[0] + 1)
+        W = ((input_shape[3] + 2 * padding[1] - dilation[1] * (kernel_size[1] - 1) - 1) // stride[1] + 1)
+
+        return H, W
+
+    def calculate_pool_output_shape(self, input_shape, kernel_size, stride, padding=0):
+        """Calculate output shape after pooling"""
+        if isinstance(kernel_size, int): kernel_size = (kernel_size, kernel_size)
+        if isinstance(stride, int): stride = (stride, stride)
+        if isinstance(padding, int): padding = (padding, padding)
+        
+        H = ((input_shape[2] + 2 * padding[0] - kernel_size[0]) // stride[0] + 1)
+        W = ((input_shape[3] + 2 * padding[1] - kernel_size[1]) // stride[1] + 1)
+        return H, W
+
     def compile_model(self, mode, LAYER_STACK, activation_function, normalization, 
-                padding_mode, weight_init, activation_params, hyperparameters=None):
+                    padding_mode, weight_init, activation_params, hyperparameters=None):
         try:
             import torch
             import torch.nn as nn
@@ -2163,33 +2186,46 @@ class NntCompileModel:
                 # Move to GPU if available
                 device = torch.device('cuda' if torch.cuda.is_available() else 'cpu')
 
-                def calculate_conv_output_shape(input_shape, kernel_size, stride, padding, dilation=1):
-                    """Calculate output shape after convolution"""
-                    if isinstance(kernel_size, int): kernel_size = (kernel_size, kernel_size)
-                    if isinstance(stride, int): stride = (stride, stride)
-                    if isinstance(padding, int): padding = (padding, padding)
-                    if isinstance(dilation, int): dilation = (dilation, dilation)
-                    
-                    H = ((input_shape[2] + 2 * padding[0] - dilation[0] * (kernel_size[0] - 1) - 1) // stride[0] + 1)
-                    W = ((input_shape[3] + 2 * padding[1] - dilation[1] * (kernel_size[1] - 1) - 1) // stride[1] + 1)
-                    return H, W
 
-                def calculate_pool_output_shape(input_shape, kernel_size, stride, padding=0):
-                    """Calculate output shape after pooling"""
-                    if isinstance(kernel_size, int): kernel_size = (kernel_size, kernel_size)
-                    if isinstance(stride, int): stride = (stride, stride)
-                    if isinstance(padding, int): padding = (padding, padding)
-                    
-                    H = ((input_shape[2] + 2 * padding[0] - kernel_size[0]) // stride[0] + 1)
-                    W = ((input_shape[3] + 2 * padding[1] - kernel_size[1]) // stride[1] + 1)
-                    return H, W
 
-                # Parse activation parameters with better error handling
-                try:
-                    default_activation_params = ast.literal_eval(activation_params)
-                except:
-                    print("Warning: Could not parse activation params, using defaults")
-                    default_activation_params = {}
+
+                def _init_layer_parameters(self, layer, layer_def, default_weight_init):
+                    """Initialize parameters for different layer types"""
+                    # Get weight initialization parameters
+                    weight_init = layer_def.get('weight_init', default_weight_init)
+                    weight_init_gain = layer_def.get('weight_init_gain', 1.0)
+                    weight_init_mode = layer_def.get('weight_init_mode', 'fan_in')
+                    weight_init_nonlinearity = layer_def.get('weight_init_nonlinearity', 'relu')
+                    
+                    if hasattr(layer, 'weight'):
+                        if weight_init == 'xavier_uniform':
+                            nn.init.xavier_uniform_(layer.weight, gain=weight_init_gain)
+                        elif weight_init == 'xavier_normal':
+                            nn.init.xavier_normal_(layer.weight, gain=weight_init_gain)
+                        elif weight_init == 'kaiming_uniform':
+                            nn.init.kaiming_uniform_(layer.weight, mode=weight_init_mode, 
+                                                   nonlinearity=weight_init_nonlinearity)
+                        elif weight_init == 'kaiming_normal':
+                            nn.init.kaiming_normal_(layer.weight, mode=weight_init_mode, 
+                                                  nonlinearity=weight_init_nonlinearity)
+                        elif weight_init == 'orthogonal':
+                            nn.init.orthogonal_(layer.weight, gain=weight_init_gain)
+
+                    # Bias initialization
+                    if hasattr(layer, 'bias') and layer.bias is not None:
+                        bias_init = layer_def.get('bias_init', 'zeros')
+                        bias_init_value = layer_def.get('bias_init_value', 0.0)
+                        
+                        if bias_init == 'zeros':
+                            nn.init.zeros_(layer.bias)
+                        elif bias_init == 'ones':
+                            nn.init.ones_(layer.bias)
+                        elif bias_init == 'normal':
+                            nn.init.normal_(layer.bias)
+                        elif bias_init == 'uniform':
+                            nn.init.uniform_(layer.bias)
+                        elif bias_init == 'constant':
+                            nn.init.constant_(layer.bias, bias_init_value)
 
                 # Find input shape
                 input_shape = None
@@ -2223,7 +2259,7 @@ class NntCompileModel:
                         # Get input channels from current tensor
                         in_channels = current_shape[1]
                         
-                        # Create conv layer
+                        # Create conv layer with all parameters
                         conv_class = getattr(nn, layer_type)
                         conv_params = {
                             'in_channels': in_channels,
@@ -2239,32 +2275,20 @@ class NntCompileModel:
                         
                         conv_layer = conv_class(**conv_params).to(device)
                         
-                        # Initialize weights
-                        weight_init = layer_def.get('weight_init', weight_init)
-                        if weight_init != 'default' and hasattr(conv_layer, 'weight'):
-                            if weight_init == 'xavier_uniform':
-                                nn.init.xavier_uniform_(conv_layer.weight)
-                            elif weight_init == 'xavier_normal':
-                                nn.init.xavier_normal_(conv_layer.weight)
-                            elif weight_init == 'kaiming_uniform':
-                                nn.init.kaiming_uniform_(conv_layer.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'kaiming_normal':
-                                nn.init.kaiming_normal_(conv_layer.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'orthogonal':
-                                nn.init.orthogonal_(conv_layer.weight)
+                        # Initialize weights with full parameter set
+                        _init_layer_parameters(self, conv_layer, layer_def, weight_init)
 
                         layers.append(conv_layer)
                         
                         # Update shape after conv
-                        H, W = calculate_conv_output_shape(
-                            current_shape,
-                            layer_def['kernel_size'],
-                            layer_def['stride'],
-                            layer_def['padding'],
-                            layer_def['dilation']
+                        H, W = self.calculate_conv_output_shape(
+                            input_shape=current_shape,
+                            kernel_size=layer_def['kernel_size'],
+                            stride=layer_def['stride'],
+                            padding=layer_def['padding'],
+                            dilation=layer_def['dilation']
                         )
                         current_shape = [current_shape[0], layer_def['out_channels'], H, W]
-                        print(f"Output shape after {layer_type}: {current_shape}")
 
                         # Add normalization if specified
                         if layer_def.get('normalization', 'None') != 'None':
@@ -2277,116 +2301,29 @@ class NntCompileModel:
                                 layer_def['out_channels'],
                                 eps=layer_def.get('norm_eps', 1e-5),
                                 momentum=layer_def.get('norm_momentum', 0.1),
-                                affine=layer_def.get('norm_affine', True)
+                                affine=layer_def.get('norm_affine', True),
+                                track_running_stats=layer_def.get('track_running_stats', True)
                             ).to(device)
                             layers.append(norm_layer)
 
-                        # Add activation
+                        # Add activation with parameters
                         if layer_def.get('activation', 'None') != 'None':
-                            activation = getattr(nn, layer_def['activation'])().to(device)
+                            activation_class = getattr(nn, layer_def['activation'])
+                            activation_params = {
+                                'inplace': layer_def.get('inplace', False)
+                            }
+                            
+                            # Check if the activation function supports the 'negative_slope' argument
+                            if 'negative_slope' in inspect.signature(activation_class).parameters:
+                                activation_params['negative_slope'] = layer_def.get('alpha', 0.01)
+                            
+                            activation = activation_class(**activation_params).to(device)
                             layers.append(activation)
 
                         # Add dropout if specified
                         if layer_def.get('dropout_rate', 0) > 0:
                             dropout = nn.Dropout(p=layer_def['dropout_rate']).to(device)
                             layers.append(dropout)
-
-                    elif 'ConvTranspose' in layer_type:
-                        # Get input channels from current tensor
-                        in_channels = current_shape[1]
-                        
-                        # Create conv transpose layer
-                        conv_class = getattr(nn, layer_type)
-                        conv_params = {
-                            'in_channels': in_channels,
-                            'out_channels': layer_def['out_channels'],
-                            'kernel_size': layer_def['kernel_size'],
-                            'stride': layer_def['stride'],
-                            'padding': layer_def['padding'],
-                            'output_padding': layer_def['output_padding'],  # Add this parameter
-                            'padding_mode': layer_def['padding_mode'],
-                            'dilation': layer_def['dilation'],
-                            'groups': layer_def['groups'],
-                            'bias': layer_def.get('use_bias', True)
-                        }
-                        
-                        conv_layer = conv_class(**conv_params).to(device)
-                        
-                        # Initialize weights
-                        weight_init = layer_def.get('weight_init', weight_init)
-                        if weight_init != 'default' and hasattr(conv_layer, 'weight'):
-                            if weight_init == 'xavier_uniform':
-                                nn.init.xavier_uniform_(conv_layer.weight)
-                            elif weight_init == 'xavier_normal':
-                                nn.init.xavier_normal_(conv_layer.weight)
-                            elif weight_init == 'kaiming_uniform':
-                                nn.init.kaiming_uniform_(conv_layer.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'kaiming_normal':
-                                nn.init.kaiming_normal_(conv_layer.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'orthogonal':
-                                nn.init.orthogonal_(conv_layer.weight)
-
-                        layers.append(conv_layer)
-                        
-                        # Update shape after transpose conv
-                        # The output size for ConvTranspose2d is:
-                        # H_out = (H_in - 1) * stride - 2 * padding + dilation * (kernel_size - 1) + output_padding + 1
-                        H = (current_shape[2] - 1) * layer_def['stride'] - 2 * layer_def['padding'] + \
-                            layer_def['dilation'] * (layer_def['kernel_size'] - 1) + layer_def['output_padding'] + 1
-                        W = (current_shape[3] - 1) * layer_def['stride'] - 2 * layer_def['padding'] + \
-                            layer_def['dilation'] * (layer_def['kernel_size'] - 1) + layer_def['output_padding'] + 1
-                        
-                        current_shape = [current_shape[0], layer_def['out_channels'], H, W]
-                        print(f"Output shape after {layer_type}: {current_shape}")
-
-                    elif layer_type == 'Flatten':
-                        flatten = nn.Flatten(
-                            start_dim=layer_def.get('start_dim', 1),
-                            end_dim=layer_def.get('end_dim', -1)
-                        ).to(device)
-                        layers.append(flatten)
-                        current_shape = [current_shape[0], np.prod(current_shape[1:])]
-                    elif layer_type == 'Reshape':
-                        # Create a custom reshape module
-                        class ReshapeLayer(nn.Module):
-                            def __init__(self, target_shape):
-                                super().__init__()
-                                self.target_shape = target_shape
-
-                            def forward(self, x):
-                                batch_size = x.size(0)
-                                return x.view(batch_size, *self.target_shape)
-
-                        # Create and add reshape layer
-                        reshape_layer = ReshapeLayer(layer_def['target_shape']).to(device)
-                        layers.append(reshape_layer)
-                        
-                        # Update current shape
-                        current_shape = [current_shape[0]] + layer_def['target_shape']
-                        print(f"Output shape after Reshape: {current_shape}")       
-                    elif layer_type in ['MaxPool2d', 'AvgPool2d']:
-                        pool_class = getattr(nn, layer_type)
-                        pool_layer = pool_class(
-                            kernel_size=layer_def['kernel_size'],
-                            stride=layer_def.get('stride', None),
-                            padding=layer_def.get('padding', 0)
-                        ).to(device)
-                        layers.append(pool_layer)
-                        
-                        # Update shape after pooling
-                        H, W = calculate_pool_output_shape(
-                            current_shape,
-                            layer_def['kernel_size'],
-                            layer_def.get('stride', layer_def['kernel_size']),
-                            layer_def.get('padding', 0)
-                        )
-                        current_shape = [current_shape[0], current_shape[1], H, W]
-
-                        # Add flattening if specified
-                        if layer_def.get('flatten_output', False):
-                            flatten = nn.Flatten().to(device)
-                            layers.append(flatten)
-                            current_shape = [current_shape[0], np.prod(current_shape[1:])]
 
                     elif layer_type == 'Linear':
                         # Add flattening if needed
@@ -2401,34 +2338,106 @@ class NntCompileModel:
                             bias=layer_def.get('use_bias', True)
                         ).to(device)
 
-                        # Initialize weights
-                        weight_init = layer_def.get('weight_init', weight_init)
-                        if weight_init != 'default' and hasattr(linear, 'weight'):
-                            if weight_init == 'xavier_uniform':
-                                nn.init.xavier_uniform_(linear.weight)
-                            elif weight_init == 'xavier_normal':
-                                nn.init.xavier_normal_(linear.weight)
-                            elif weight_init == 'kaiming_uniform':
-                                nn.init.kaiming_uniform_(linear.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'kaiming_normal':
-                                nn.init.kaiming_normal_(linear.weight, mode='fan_out', nonlinearity='relu')
-                            elif weight_init == 'orthogonal':
-                                nn.init.orthogonal_(linear.weight)
-
+                        # Initialize weights with full parameter set
+                        _init_layer_parameters(self, linear, layer_def, weight_init)
+                        
                         layers.append(linear)
                         current_shape = [current_shape[0], layer_def['num_nodes']]
 
                         # Add activation if specified
                         if layer_def.get('activation', 'None') != 'None':
-                            activation = getattr(nn, layer_def['activation'])().to(device)
+                            activation_class = getattr(nn, layer_def['activation'])
+                            activation_params = {
+                                'inplace': layer_def.get('inplace', False)
+                            }
+                            
+                            # Check if the activation function supports the 'negative_slope' argument
+                            if 'negative_slope' in inspect.signature(activation_class).parameters:
+                                activation_params['negative_slope'] = layer_def.get('alpha', 0.01)
+                            
+                            activation = activation_class(**activation_params).to(device)
                             layers.append(activation)
 
                         # Add dropout if specified
                         if layer_def.get('dropout_rate', 0) > 0:
                             dropout = nn.Dropout(p=layer_def['dropout_rate']).to(device)
                             layers.append(dropout)
+
+                    elif layer_type == 'Flatten':
+                        flatten = nn.Flatten(
+                            start_dim=layer_def.get('start_dim', 1),
+                            end_dim=layer_def.get('end_dim', -1)
+                        ).to(device)
+                        layers.append(flatten)
+                        current_shape = [current_shape[0], np.prod(current_shape[1:])]
+
+                    elif layer_type == 'Reshape':
+                        # Create a custom reshape module
+                        class ReshapeLayer(nn.Module):
+                            def __init__(self, target_shape):
+                                super().__init__()
+                                self.target_shape = target_shape
+
+                            def forward(self, x):
+                                batch_size = x.size(0)
+                                return x.view(batch_size, *self.target_shape)
+
+                        reshape_layer = ReshapeLayer(layer_def['target_shape']).to(device)
+                        layers.append(reshape_layer)
+                        current_shape = [current_shape[0]] + layer_def['target_shape']
+
+                    elif layer_type in ['MaxPool2d', 'AvgPool2d']:
+                        pool_class = getattr(nn, layer_type)
+                        pool_params = {
+                            'kernel_size': layer_def['kernel_size'],
+                            'stride': layer_def.get('stride', None),
+                            'padding': layer_def.get('padding', 0),
+                            'ceil_mode': layer_def.get('ceil_mode', False)
+                        }
                         
-                    print(f"Output shape after {layer_type}: {current_shape}")
+                        # Add MaxPool specific parameters
+                        if 'MaxPool' in layer_type:
+                            pool_params.update({
+                                'dilation': layer_def.get('dilation', 1),
+                                'return_indices': layer_def.get('return_indices', False)
+                            })
+                        elif 'AvgPool' in layer_type:
+                            pool_params['count_include_pad'] = layer_def.get('count_include_pad', True)
+                            
+                        pool_layer = pool_class(**pool_params).to(device)
+                        layers.append(pool_layer)
+                        
+                        # Update shape after pooling
+                        H, W = self.calculate_pool_output_shape(
+                            current_shape,
+                            layer_def['kernel_size'],
+                            layer_def.get('stride', layer_def['kernel_size']),
+                            layer_def.get('padding', 0)
+                        )
+                        current_shape = [current_shape[0], current_shape[1], H, W]
+
+                        # Add flattening if specified
+                        if layer_def.get('flatten_output', False):
+                            flatten = nn.Flatten().to(device)
+                            layers.append(flatten)
+                            current_shape = [current_shape[0], np.prod(current_shape[1:])]
+
+                    elif layer_type in ['BatchNorm1d', 'BatchNorm2d', 'BatchNorm3d', 'LayerNorm']:
+                        norm_params = {
+                            'eps': layer_def.get('norm_eps', 1e-5),
+                            'momentum': layer_def.get('norm_momentum', 0.1),
+                            'affine': layer_def.get('norm_affine', True),
+                            'track_running_stats': layer_def.get('track_running_stats', True)
+                        }
+                        
+                        if layer_type == 'LayerNorm':
+                            norm_params['normalized_shape'] = current_shape[1:]
+                        else:
+                            norm_params['num_features'] = current_shape[1]
+                            
+                        norm_class = getattr(nn, layer_type)
+                        norm_layer = norm_class(**norm_params).to(device)
+                        layers.append(norm_layer)
 
                 # Create the model and move to device
                 model = nn.Sequential(*layers).to(device)
@@ -3027,7 +3036,13 @@ class NntCompileModel:
             causal=layer_def['causal']
         )
 
-    def _init_layer_parameters(self, layer, weight_init, activation_function):
+    def _init_layer_parameters(self, layer, layer_def, default_weight_init):
+        # Get weight initialization parameters
+        weight_init = layer_def.get('weight_init', default_weight_init)  # Use passed default
+        weight_init_gain = layer_def.get('weight_init_gain', 1.0)
+        weight_init_mode = layer_def.get('weight_init_mode', 'fan_in')
+        weight_init_nonlinearity = layer_def.get('weight_init_nonlinearity', 'relu')
+
         """Initialize parameters for different layer types"""
         if hasattr(layer, 'weight'):
             if weight_init == 'xavier_uniform':

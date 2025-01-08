@@ -543,12 +543,24 @@ class NntDefineConvLayer:
                     LAYER_STACK.append(norm_layer)
 
                 # Activation layer
+                # Activation layer
                 if activation_function != "None":
-                    act_layer = {
-                        'type': 'Activation',
-                        'activation_type': activation_function,
-                        'out_channels': out_channels
-                    }
+                    if activation_function == "ReLU":
+                        act_layer = {
+                            'type': 'Activation',
+                            'activation_type': activation_function
+                        }
+                    elif activation_function == "LeakyReLU":
+                        act_layer = {
+                            'type': 'Activation',
+                            'activation_type': activation_function,
+                            'negative_slope': 0.01  # Default value, you can make it configurable if needed
+                        }
+                    else:
+                        act_layer = {
+                            'type': 'Activation',
+                            'activation_type': activation_function
+                        }
                     LAYER_STACK.append(act_layer)
 
                 # Dropout layer
