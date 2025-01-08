@@ -151,7 +151,7 @@
         "Node name for S&R": "JjkShowText"
       },
       "widgets_values": [
-        "\nLayer 1: Type=Input | Shape=[1]\n\nLayer 2: Type=Linear | Nodes=32 | Activation=ReLU | Details: Use Bias=True, Weight Init=xavier_uniform, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True\n\nLayer 3: Type=Linear | Nodes=32 | Activation=ReLU | Details: Use Bias=True, Weight Init=xavier_uniform, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True\n\nLayer 4: Type=Linear | Nodes=1 | Activation=None | Details: Use Bias=True, Weight Init=xavier_uniform, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True"
+        "\nLayer 1: Type=Input | Shape=[1]\n\nLayer 2: Type=Linear | Nodes=32 | Activation=ReLU | Details: Use Bias=True, Weight Init=kaiming_normal, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True\n\nLayer 3: Type=Linear | Nodes=32 | Activation=ReLU | Details: Use Bias=True, Weight Init=kaiming_normal, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True\n\nLayer 4: Type=Linear | Nodes=1 | Activation=None | Details: Use Bias=True, Weight Init=kaiming_normal, Init Gain=1.0, Init Mode=fan_in, Init NonLin=relu, Norm Eps=1e-05, Norm Momentum=0.1, Norm Affine=True"
       ]
     },
     {
@@ -214,7 +214,11 @@
         "None",
         "zeros",
         "kaiming_normal",
-        "{}"
+        "{}",
+        [
+          false,
+          true
+        ]
       ]
     },
     {
@@ -291,125 +295,6 @@
       },
       "widgets_values": [
         "Detailed"
-      ]
-    },
-    {
-      "id": 17,
-      "type": "NntDefineDenseLayer",
-      "pos": [
-        2225.26904296875,
-        -1965.5374755859375
-      ],
-      "size": [
-        315,
-        438
-      ],
-      "flags": {},
-      "order": 5,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "LAYER_STACK",
-          "type": "LIST",
-          "link": 122,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LAYER_STACK",
-          "type": "LIST",
-          "links": [
-            20,
-            41
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "num_nodes",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "NntDefineDenseLayer"
-      },
-      "widgets_values": [
-        1,
-        "None",
-        "True",
-        "xavier_uniform",
-        1,
-        "fan_in",
-        "relu",
-        "ones",
-        0,
-        "None",
-        0.00001,
-        0.1,
-        "True",
-        0,
-        0.01,
-        1
-      ]
-    },
-    {
-      "id": 42,
-      "type": "NntDefineDenseLayer",
-      "pos": [
-        1859.3665771484375,
-        -1968.9541015625
-      ],
-      "size": [
-        315,
-        438
-      ],
-      "flags": {},
-      "order": 4,
-      "mode": 0,
-      "inputs": [
-        {
-          "name": "LAYER_STACK",
-          "type": "LIST",
-          "link": 131,
-          "shape": 7
-        }
-      ],
-      "outputs": [
-        {
-          "name": "LAYER_STACK",
-          "type": "LIST",
-          "links": [
-            122
-          ],
-          "slot_index": 0
-        },
-        {
-          "name": "num_nodes",
-          "type": "INT",
-          "links": null
-        }
-      ],
-      "properties": {
-        "Node name for S&R": "NntDefineDenseLayer"
-      },
-      "widgets_values": [
-        32,
-        "ReLU",
-        "True",
-        "xavier_uniform",
-        1,
-        "fan_in",
-        "relu",
-        "ones",
-        0,
-        "None",
-        0.00001,
-        0.1,
-        "True",
-        0,
-        0.01,
-        2
       ]
     },
     {
@@ -578,7 +463,11 @@
         true,
         "cpu",
         "[[-5],[-4],[-3],[-2],[-1],[0],[1],[2],[3],[4],[5],[6],[7],[8],[9],[10]]",
-        ""
+        "",
+        [
+          false,
+          true
+        ]
       ]
     },
     {
@@ -626,7 +515,11 @@
         false,
         "cpu",
         "[[11],[9],[7],[5],[3],[1],[3],[5], [7], [9],[11],[13],[15],[17],[19],[21]]",
-        ""
+        "",
+        [
+          false,
+          true
+        ]
       ]
     },
     {
@@ -656,7 +549,11 @@
         "Node name for S&R": "JjkText"
       },
       "widgets_values": [
-        "This workflow demonstrates training a neural network to approximate a V-shaped function: y = abs(x) + 1\n\nThe network learns to map scalar inputs to their corresponding V-shaped outputs using:\n- Input: 16 data points from x=-5 to x=10\n- Target: V-shaped values following y = abs(x) + 1\n- Architecture: 3-layer network (1 → 32 → 32 → 1) with ReLU activations\n- Training: Adam optimizer, MSE loss, batch training\n\nCurrent configuration achieves MSE of ~0.004, showing excellent approximation of the non-linear function.\n\nExperiment suggestions:\n1. Architecture modifications:\n   - Change number of hidden layers (try 1 or 3)\n   - Adjust number of nodes (try 16 or 64)\n   - Test different activation functions (try tanh or GELU)\n   - Add dropout or batch normalization\n\n2. Training parameters:\n   - Modify learning rate (try 0.001 or 0.0001)\n   - Change batch size\n   - Test different optimizers (try SGD or RMSprop)\n   - Add weight decay for regularization\n   \n3. Data modifications:\n   - Change input range or number of points\n   - Add noise to training data\n   - Create different non-linear functions (try parabola or sine)\n\nThis workflow serves as a basic template for function approximation tasks and demonstrates\nthe capability of neural networks to learn non-linear relationships."
+        "This workflow demonstrates training a neural network to approximate a V-shaped function: y = abs(x) + 1\n\nThe network learns to map scalar inputs to their corresponding V-shaped outputs using:\n- Input: 16 data points from x=-5 to x=10\n- Target: V-shaped values following y = abs(x) + 1\n- Architecture: 3-layer network (1 → 32 → 32 → 1) with ReLU activations\n- Training: Adam optimizer, MSE loss, batch training\n\nCurrent configuration achieves MSE of ~0.004, showing excellent approximation of the non-linear function.\n\nExperiment suggestions:\n1. Architecture modifications:\n   - Change number of hidden layers (try 1 or 3)\n   - Adjust number of nodes (try 16 or 64)\n   - Test different activation functions (try tanh or GELU)\n   - Add dropout or batch normalization\n\n2. Training parameters:\n   - Modify learning rate (try 0.001 or 0.0001)\n   - Change batch size\n   - Test different optimizers (try SGD or RMSprop)\n   - Add weight decay for regularization\n   \n3. Data modifications:\n   - Change input range or number of points\n   - Add noise to training data\n   - Create different non-linear functions (try parabola or sine)\n\nThis workflow serves as a basic template for function approximation tasks and demonstrates\nthe capability of neural networks to learn non-linear relationships.",
+        [
+          false,
+          true
+        ]
       ]
     },
     {
@@ -887,7 +784,8 @@
       "outputs": [],
       "properties": {
         "Node name for S&R": "PreviewImage"
-      }
+      },
+      "widgets_values": []
     },
     {
       "id": 73,
@@ -926,7 +824,7 @@
         "Node name for S&R": "JjkShowText"
       },
       "widgets_values": [
-        "[[11.0121],\n [ 8.9993],\n [ 6.9678],\n [ 5.0204],\n [ 2.9957],\n [ 1.1121],\n [ 2.9406],\n [ 4.8595],\n [ 6.9777],\n [ 9.1184],\n [11.0769],\n [12.9761],\n [14.9762],\n [16.9899],\n [18.9961],\n [21.0023]]"
+        "[[10.2435],\n [ 8.9257],\n [ 7.1438],\n [ 5.1206],\n [ 3.2185],\n [ 2.2866],\n [ 2.9942],\n [ 4.7896],\n [ 6.7192],\n [ 8.776 ],\n [10.865 ],\n [12.954 ],\n [15.0431],\n [17.0729],\n [19.0395],\n [21.0581]]"
       ]
     },
     {
@@ -966,7 +864,7 @@
         "Node name for S&R": "JjkShowText"
       },
       "widgets_values": [
-        "Training Results (0.29s):\n--------------------------------------------------\nEpoch   1/100: MSE Loss = 0.0616\nEpoch   2/100: MSE Loss = 0.0581\nEpoch   3/100: MSE Loss = 0.0596\nEpoch   4/100: MSE Loss = 0.0528\nEpoch   5/100: MSE Loss = 0.0540\nEpoch   6/100: MSE Loss = 0.0497\nEpoch   7/100: MSE Loss = 0.0468\nEpoch   8/100: MSE Loss = 0.0467\nEpoch   9/100: MSE Loss = 0.0444\nEpoch  10/100: MSE Loss = 0.0415\nEpoch  11/100: MSE Loss = 0.0404\nEpoch  12/100: MSE Loss = 0.0395\nEpoch  13/100: MSE Loss = 0.0375\nEpoch  14/100: MSE Loss = 0.0356\nEpoch  15/100: MSE Loss = 0.0347\nEpoch  16/100: MSE Loss = 0.0338\nEpoch  17/100: MSE Loss = 0.0321\nEpoch  18/100: MSE Loss = 0.0308\nEpoch  19/100: MSE Loss = 0.0297\nEpoch  20/100: MSE Loss = 0.0284\nEpoch  21/100: MSE Loss = 0.0271\nEpoch  22/100: MSE Loss = 0.0262\nEpoch  23/100: MSE Loss = 0.0252\nEpoch  24/100: MSE Loss = 0.0241\nEpoch  25/100: MSE Loss = 0.0230\nEpoch  26/100: MSE Loss = 0.0222\nEpoch  27/100: MSE Loss = 0.0213\nEpoch  28/100: MSE Loss = 0.0201\nEpoch  29/100: MSE Loss = 0.0192\nEpoch  30/100: MSE Loss = 0.0185\nEpoch  31/100: MSE Loss = 0.0177\nEpoch  32/100: MSE Loss = 0.0168\nEpoch  33/100: MSE Loss = 0.0162\nEpoch  34/100: MSE Loss = 0.0155\nEpoch  35/100: MSE Loss = 0.0147\nEpoch  36/100: MSE Loss = 0.0141\nEpoch  37/100: MSE Loss = 0.0135\nEpoch  38/100: MSE Loss = 0.0129\nEpoch  39/100: MSE Loss = 0.0123\nEpoch  40/100: MSE Loss = 0.0117\nEpoch  41/100: MSE Loss = 0.0112\nEpoch  42/100: MSE Loss = 0.0106\nEpoch  43/100: MSE Loss = 0.0102\nEpoch  44/100: MSE Loss = 0.0098\nEpoch  45/100: MSE Loss = 0.0093\nEpoch  46/100: MSE Loss = 0.0089\nEpoch  47/100: MSE Loss = 0.0086\nEpoch  48/100: MSE Loss = 0.0082\nEpoch  49/100: MSE Loss = 0.0078\nEpoch  50/100: MSE Loss = 0.0075\nEpoch  51/100: MSE Loss = 0.0072\nEpoch  52/100: MSE Loss = 0.0068\nEpoch  53/100: MSE Loss = 0.0066\nEpoch  54/100: MSE Loss = 0.0063\nEpoch  55/100: MSE Loss = 0.0060\nEpoch  56/100: MSE Loss = 0.0058\nEpoch  57/100: MSE Loss = 0.0055\nEpoch  58/100: MSE Loss = 0.0053\nEpoch  59/100: MSE Loss = 0.0051\nEpoch  60/100: MSE Loss = 0.0049\nEpoch  61/100: MSE Loss = 0.0046\nEpoch  62/100: MSE Loss = 0.0045\nEpoch  63/100: MSE Loss = 0.0043\nEpoch  64/100: MSE Loss = 0.0041\nEpoch  65/100: MSE Loss = 0.0040\nEpoch  66/100: MSE Loss = 0.0038\n--------------------------------------------------\nFinal Loss: 0.0038, Best Loss: 0.0038\nFinal Learning Rate: 0.000500"
+        "Training Results (0.38s):\n--------------------------------------------------\nEpoch   1/100: MSE Loss = 11.7855\nEpoch   2/100: MSE Loss = 10.3805\nEpoch   3/100: MSE Loss = 9.1218\nEpoch   4/100: MSE Loss = 7.9928\nEpoch   5/100: MSE Loss = 6.9892\nEpoch   6/100: MSE Loss = 6.1103\nEpoch   7/100: MSE Loss = 5.3525\nEpoch   8/100: MSE Loss = 4.7116\nEpoch   9/100: MSE Loss = 4.1814\nEpoch  10/100: MSE Loss = 3.7551\nEpoch  11/100: MSE Loss = 3.4150\nEpoch  12/100: MSE Loss = 3.1565\nEpoch  13/100: MSE Loss = 2.9621\nEpoch  14/100: MSE Loss = 2.8155\nEpoch  15/100: MSE Loss = 2.7041\nEpoch  16/100: MSE Loss = 2.6156\nEpoch  17/100: MSE Loss = 2.5401\nEpoch  18/100: MSE Loss = 2.4691\nEpoch  19/100: MSE Loss = 2.3951\nEpoch  20/100: MSE Loss = 2.3146\nEpoch  21/100: MSE Loss = 2.2265\nEpoch  22/100: MSE Loss = 2.1314\nEpoch  23/100: MSE Loss = 2.0276\nEpoch  24/100: MSE Loss = 1.9174\nEpoch  25/100: MSE Loss = 1.8039\nEpoch  26/100: MSE Loss = 1.6901\nEpoch  27/100: MSE Loss = 1.5790\nEpoch  28/100: MSE Loss = 1.4736\nEpoch  29/100: MSE Loss = 1.3763\nEpoch  30/100: MSE Loss = 1.2889\nEpoch  31/100: MSE Loss = 1.2121\nEpoch  32/100: MSE Loss = 1.1460\nEpoch  33/100: MSE Loss = 1.0902\nEpoch  34/100: MSE Loss = 1.0435\nEpoch  35/100: MSE Loss = 1.0045\nEpoch  36/100: MSE Loss = 0.9712\nEpoch  37/100: MSE Loss = 0.9419\nEpoch  38/100: MSE Loss = 0.9147\nEpoch  39/100: MSE Loss = 0.8883\nEpoch  40/100: MSE Loss = 0.8616\nEpoch  41/100: MSE Loss = 0.8358\nEpoch  42/100: MSE Loss = 0.8098\nEpoch  43/100: MSE Loss = 0.7838\nEpoch  44/100: MSE Loss = 0.7580\nEpoch  45/100: MSE Loss = 0.7327\nEpoch  46/100: MSE Loss = 0.7083\nEpoch  47/100: MSE Loss = 0.6851\nEpoch  48/100: MSE Loss = 0.6633\nEpoch  49/100: MSE Loss = 0.6430\nEpoch  50/100: MSE Loss = 0.6241\nEpoch  51/100: MSE Loss = 0.6063\nEpoch  52/100: MSE Loss = 0.5893\nEpoch  53/100: MSE Loss = 0.5734\nEpoch  54/100: MSE Loss = 0.5590\nEpoch  55/100: MSE Loss = 0.5446\nEpoch  56/100: MSE Loss = 0.5302\nEpoch  57/100: MSE Loss = 0.5157\nEpoch  58/100: MSE Loss = 0.5011\nEpoch  59/100: MSE Loss = 0.4866\nEpoch  60/100: MSE Loss = 0.4722\nEpoch  61/100: MSE Loss = 0.4584\nEpoch  62/100: MSE Loss = 0.4452\nEpoch  63/100: MSE Loss = 0.4325\nEpoch  64/100: MSE Loss = 0.4204\nEpoch  65/100: MSE Loss = 0.4088\nEpoch  66/100: MSE Loss = 0.3976\nEpoch  67/100: MSE Loss = 0.3868\nEpoch  68/100: MSE Loss = 0.3758\nEpoch  69/100: MSE Loss = 0.3649\nEpoch  70/100: MSE Loss = 0.3541\nEpoch  71/100: MSE Loss = 0.3435\nEpoch  72/100: MSE Loss = 0.3333\nEpoch  73/100: MSE Loss = 0.3238\nEpoch  74/100: MSE Loss = 0.3147\nEpoch  75/100: MSE Loss = 0.3063\nEpoch  76/100: MSE Loss = 0.2983\nEpoch  77/100: MSE Loss = 0.2904\nEpoch  78/100: MSE Loss = 0.2825\nEpoch  79/100: MSE Loss = 0.2746\nEpoch  80/100: MSE Loss = 0.2670\nEpoch  81/100: MSE Loss = 0.2595\nEpoch  82/100: MSE Loss = 0.2526\nEpoch  83/100: MSE Loss = 0.2462\nEpoch  84/100: MSE Loss = 0.2399\nEpoch  85/100: MSE Loss = 0.2338\nEpoch  86/100: MSE Loss = 0.2278\nEpoch  87/100: MSE Loss = 0.2220\nEpoch  88/100: MSE Loss = 0.2162\nEpoch  89/100: MSE Loss = 0.2104\nEpoch  90/100: MSE Loss = 0.2047\nEpoch  91/100: MSE Loss = 0.1994\nEpoch  92/100: MSE Loss = 0.1945\nEpoch  93/100: MSE Loss = 0.1899\nEpoch  94/100: MSE Loss = 0.1855\nEpoch  95/100: MSE Loss = 0.1811\nEpoch  96/100: MSE Loss = 0.1768\nEpoch  97/100: MSE Loss = 0.1727\nEpoch  98/100: MSE Loss = 0.1686\nEpoch  99/100: MSE Loss = 0.1648\nEpoch 100/100: MSE Loss = 0.1611\n--------------------------------------------------\nFinal Loss: 0.1611, Best Loss: 0.1611\nFinal Learning Rate: 0.000500"
       ]
     },
     {
@@ -1053,7 +951,126 @@
         "Node name for S&R": "JjkShowText"
       },
       "widgets_values": [
-        "Training Metrics Summary:\n-------------------------\nFinal Loss: 0.0038\nBest Loss: 0.0038\nInitial LR: 0.000500\nFinal LR: 0.000500"
+        "Training Metrics Summary:\n-------------------------\nFinal Loss: 0.1611\nBest Loss: 0.1611\nInitial LR: 0.000500\nFinal LR: 0.000500"
+      ]
+    },
+    {
+      "id": 42,
+      "type": "NntDefineDenseLayer",
+      "pos": [
+        1859.3665771484375,
+        -1968.9541015625
+      ],
+      "size": [
+        315,
+        438
+      ],
+      "flags": {},
+      "order": 4,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 131,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            122
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "num_nodes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineDenseLayer"
+      },
+      "widgets_values": [
+        32,
+        "ReLU",
+        "True",
+        "kaiming_normal",
+        1,
+        "fan_in",
+        "relu",
+        "ones",
+        0,
+        "None",
+        0.00001,
+        0.1,
+        "True",
+        0,
+        0.01,
+        2
+      ]
+    },
+    {
+      "id": 17,
+      "type": "NntDefineDenseLayer",
+      "pos": [
+        2225.26904296875,
+        -1965.5374755859375
+      ],
+      "size": [
+        315,
+        438
+      ],
+      "flags": {},
+      "order": 5,
+      "mode": 0,
+      "inputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "link": 122,
+          "shape": 7
+        }
+      ],
+      "outputs": [
+        {
+          "name": "LAYER_STACK",
+          "type": "LIST",
+          "links": [
+            20,
+            41
+          ],
+          "slot_index": 0
+        },
+        {
+          "name": "num_nodes",
+          "type": "INT",
+          "links": null
+        }
+      ],
+      "properties": {
+        "Node name for S&R": "NntDefineDenseLayer"
+      },
+      "widgets_values": [
+        1,
+        "None",
+        "True",
+        "kaiming_normal",
+        1,
+        "fan_in",
+        "relu",
+        "ones",
+        0,
+        "None",
+        0.00001,
+        0.1,
+        "True",
+        0,
+        0.01,
+        1
       ]
     }
   ],
@@ -1334,10 +1351,10 @@
   "config": {},
   "extra": {
     "ds": {
-      "scale": 0.5209868481924381,
+      "scale": 0.826446280991736,
       "offset": [
-        -617.4004383504666,
-        2245.7395216575733
+        -729.703352193144,
+        2222.37104919489
       ]
     }
   },

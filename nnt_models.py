@@ -2240,6 +2240,7 @@ class NntCompileModel:
                         conv_layer = conv_class(**conv_params).to(device)
                         
                         # Initialize weights
+                        weight_init = layer_def.get('weight_init', weight_init)
                         if weight_init != 'default' and hasattr(conv_layer, 'weight'):
                             if weight_init == 'xavier_uniform':
                                 nn.init.xavier_uniform_(conv_layer.weight)
@@ -2312,6 +2313,7 @@ class NntCompileModel:
                         conv_layer = conv_class(**conv_params).to(device)
                         
                         # Initialize weights
+                        weight_init = layer_def.get('weight_init', weight_init)
                         if weight_init != 'default' and hasattr(conv_layer, 'weight'):
                             if weight_init == 'xavier_uniform':
                                 nn.init.xavier_uniform_(conv_layer.weight)
@@ -2400,6 +2402,7 @@ class NntCompileModel:
                         ).to(device)
 
                         # Initialize weights
+                        weight_init = layer_def.get('weight_init', weight_init)
                         if weight_init != 'default' and hasattr(linear, 'weight'):
                             if weight_init == 'xavier_uniform':
                                 nn.init.xavier_uniform_(linear.weight)
